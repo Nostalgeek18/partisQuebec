@@ -1,0 +1,681 @@
+cd<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Comparateur électoral Québec 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#F7F5EF;
+    --surface:#FFFFFF;
+    --surface-alt:#EFEAE0;
+    --ink:#1C1B18;
+    --ink-muted:#5B584E;
+    --ink-faint:#8B8778;
+    --border:#DEDACC;
+    --accent:#33566B;
+    --accent-soft:#E4EDF0;
+
+    --caq:#0A5FA8;
+    --plq:#D6142B;
+    --pq:#1EA6DE;
+    --qs:#E8650F;
+    --pcq:#1B2A4A;
+
+    --radius:10px;
+    --shadow:0 1px 2px rgba(28,27,24,0.06), 0 6px 20px -12px rgba(28,27,24,0.18);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#17181B;
+      --surface:#1E2024;
+      --surface-alt:#25272C;
+      --ink:#EEECE5;
+      --ink-muted:#ACA99E;
+      --ink-faint:#78766C;
+      --border:#34363B;
+      --accent:#8FB6CC;
+      --accent-soft:#233038;
+
+      --caq:#4FA3E8;
+      --plq:#FF6B7A;
+      --pq:#5FC6F0;
+      --qs:#FF9948;
+      --pcq:#8393BE;
+
+      --shadow:0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#17181B;
+    --surface:#1E2024;
+    --surface-alt:#25272C;
+    --ink:#EEECE5;
+    --ink-muted:#ACA99E;
+    --ink-faint:#78766C;
+    --border:#34363B;
+    --accent:#8FB6CC;
+    --accent-soft:#233038;
+
+    --caq:#4FA3E8;
+    --plq:#FF6B7A;
+    --pq:#5FC6F0;
+    --qs:#FF9948;
+    --pcq:#8393BE;
+
+    --shadow:0 1px 2px rgba(0,0,0,0.3), 0 8px 24px -12px rgba(0,0,0,0.5);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Public Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+
+  h1,h2,h3,h4{
+    font-family:"Fraunces", Georgia, serif;
+    font-weight:600;
+    text-wrap:balance;
+    margin:0;
+    color:var(--ink);
+  }
+
+  a{color:var(--accent);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:sticky; top:0; z-index:20;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--border);
+  }
+  .site-header .wrap{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding-top:14px; padding-bottom:14px;
+  }
+  .brand{
+    font-family:"Fraunces", serif; font-weight:600; font-size:1.02rem;
+    letter-spacing:0.01em; white-space:nowrap;
+  }
+  .site-nav{display:flex; gap:22px; flex-wrap:wrap;}
+  .site-nav a{
+    color:var(--ink-muted); text-decoration:none; font-size:0.92rem; font-weight:500;
+  }
+  .site-nav a:hover{color:var(--ink);}
+  .days-chip{
+    font-family:"IBM Plex Mono", monospace; font-size:0.78rem;
+    background:var(--accent-soft); color:var(--accent);
+    border-radius:999px; padding:5px 12px; white-space:nowrap;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:56px 0 40px; border-bottom:1px solid var(--border);}
+  .hero .eyebrow{
+    font-family:"IBM Plex Mono", monospace; font-size:0.78rem;
+    text-transform:uppercase; letter-spacing:0.09em; color:var(--ink-faint);
+    margin-bottom:14px;
+  }
+  .hero h1{font-size:clamp(2rem, 4.4vw, 2.9rem); line-height:1.08; max-width:15ch;}
+  .hero p.lead{
+    font-size:1.08rem; color:var(--ink-muted); max-width:60ch; margin-top:18px;
+  }
+  .hero .disclaimer{
+    margin-top:22px; padding:12px 16px; background:var(--surface-alt);
+    border-left:3px solid var(--accent); border-radius:4px;
+    font-size:0.86rem; color:var(--ink-muted); max-width:64ch;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:52px 0;}
+  section > .wrap > .section-head{margin-bottom:28px;}
+  .section-head .eyebrow{
+    font-family:"IBM Plex Mono", monospace; font-size:0.76rem;
+    text-transform:uppercase; letter-spacing:0.08em; color:var(--ink-faint);
+    display:block; margin-bottom:8px;
+  }
+  .section-head h2{font-size:1.6rem;}
+  .section-head p{color:var(--ink-muted); margin-top:8px; max-width:62ch;}
+
+  /* ---------- party overview cards ---------- */
+  .party-grid-overview{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr));
+    gap:14px;
+  }
+  .party-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:18px; box-shadow:var(--shadow);
+    border-top:4px solid var(--party-color, var(--accent));
+    transition:opacity .2s ease;
+  }
+  .party-card .abbr{
+    font-family:"IBM Plex Mono", monospace; font-weight:500; font-size:0.78rem;
+    color:var(--party-color); letter-spacing:0.04em;
+  }
+  .party-card h3{font-size:1.12rem; margin-top:4px;}
+  .party-card .leader{color:var(--ink-muted); font-size:0.88rem; margin-top:6px;}
+  .party-card .slogan{
+    font-size:0.84rem; color:var(--ink-faint); font-style:italic; margin-top:10px;
+  }
+
+  /* ---------- filter bar ---------- */
+  .filter-bar{
+    display:flex; flex-wrap:wrap; gap:8px; margin-bottom:36px;
+    align-items:center;
+  }
+  .filter-bar .label{
+    font-size:0.82rem; color:var(--ink-faint); margin-right:4px;
+  }
+  .chip{
+    font-family:"Public Sans", sans-serif; font-size:0.86rem; font-weight:600;
+    border:1.5px solid var(--chip-color, var(--border));
+    background:var(--surface); color:var(--chip-color, var(--ink-muted));
+    border-radius:999px; padding:6px 14px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:7px;
+    transition:background .15s ease, color .15s ease;
+  }
+  .chip .dot{width:8px; height:8px; border-radius:50%; background:var(--chip-color);}
+  .chip[aria-pressed="false"]{
+    color:var(--ink-faint); border-color:var(--border); opacity:0.6;
+  }
+  .chip[aria-pressed="false"] .dot{background:var(--ink-faint);}
+  .chip:hover{opacity:1;}
+
+  /* ---------- theme blocks ---------- */
+  .theme-block{margin-bottom:34px;}
+  .theme-block h3{
+    font-size:1.2rem; margin-bottom:14px; padding-bottom:10px;
+    border-bottom:1px solid var(--border);
+  }
+  .party-grid{
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+    gap:12px;
+  }
+  .party-cell{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; border-left:3px solid var(--cell-color, var(--accent));
+  }
+  .party-cell.is-hidden{display:none;}
+  .party-cell .cell-head{
+    display:flex; align-items:baseline; gap:8px; margin-bottom:8px;
+  }
+  .party-cell .cell-head .abbr{
+    font-family:"IBM Plex Mono", monospace; font-weight:600; font-size:0.82rem;
+    color:var(--cell-color);
+  }
+  .party-cell ul{margin:0; padding-left:18px; font-size:0.91rem; color:var(--ink);}
+  .party-cell li{margin-bottom:6px;}
+  .party-cell li:last-child{margin-bottom:0;}
+  .party-cell.thin ul{color:var(--ink-muted); font-style:italic; font-size:0.88rem;}
+
+  /* ---------- sources ---------- */
+  .sources ol{padding-left:20px; color:var(--ink-muted); font-size:0.92rem;}
+  .sources li{margin-bottom:6px;}
+  .meta-note{
+    margin-top:24px; font-size:0.86rem; color:var(--ink-faint);
+    border-top:1px solid var(--border); padding-top:18px;
+  }
+
+  footer{
+    border-top:1px solid var(--border); padding:24px 0 40px;
+    font-size:0.82rem; color:var(--ink-faint);
+  }
+
+  @media (max-width:640px){
+    .site-nav{display:none;}
+    .hero{padding:40px 0 32px;}
+    section{padding:38px 0;}
+  }
+</style>
+
+
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <span class="brand">Comparateur électoral · QC 2026</span>
+    <nav class="site-nav" aria-label="Navigation">
+      <a href="#partis">Partis</a>
+      <a href="#comparateur">Comparateur</a>
+      <a href="#sources">Sources</a>
+    </nav>
+    <span class="days-chip" id="days-chip">calcul en cours…</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow">Élection générale — 5 octobre 2026</span>
+      <h1>Où logent les partis québécois sur les grands enjeux de 2026</h1>
+      <p class="lead">Un survol condensé des engagements de la CAQ, du PLQ, du PQ, de Québec solidaire et du PCQ, organisé par enjeu plutôt que par communiqué de presse, pour comparer rapidement les positions avant d'aller voter.</p>
+      <p class="disclaimer">Outil indépendant, non affilié à Élections Québec ni à aucun parti. Résumé de la couverture journalistique disponible au 28 août 2026 — les plateformes complètes peuvent évoluer d'ici le scrutin. Vérifiez toujours les sites officiels des partis avant de trancher.</p>
+    </div>
+  </section>
+
+  <section id="partis">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Vue d'ensemble</span>
+        <h2>Les cinq partis en lice</h2>
+        <p>Chefs et positionnement au moment d'écrire ces lignes.</p>
+      </div>
+      <div class="party-grid-overview">
+        <div class="party-card" style="--party-color:var(--caq)">
+          <span class="abbr">CAQ</span>
+          <h3>Coalition avenir Québec</h3>
+          <p class="leader">Christine Fréchette</p>
+          <p class="slogan">« Avançons »</p>
+        </div>
+        <div class="party-card" style="--party-color:var(--plq)">
+          <span class="abbr">PLQ</span>
+          <h3>Parti libéral du Québec</h3>
+          <p class="leader">Charles Milliard</p>
+          <p class="slogan">Nationaliste, fédéraliste, régionaliste</p>
+        </div>
+        <div class="party-card" style="--party-color:var(--pq)">
+          <span class="abbr">PQ</span>
+          <h3>Parti québécois</h3>
+          <p class="leader">Paul St-Pierre Plamondon</p>
+          <p class="slogan">Un référendum, en temps choisi</p>
+        </div>
+        <div class="party-card" style="--party-color:var(--qs)">
+          <span class="abbr">QS</span>
+          <h3>Québec solidaire</h3>
+          <p class="leader">Ruba Ghazal &amp; Sol Zanetti</p>
+          <p class="slogan">« La voie de l'espoir »</p>
+        </div>
+        <div class="party-card" style="--party-color:var(--pcq)">
+          <span class="abbr">PCQ</span>
+          <h3>Parti conservateur du Québec</h3>
+          <p class="leader">Éric Duhaime</p>
+          <p class="slogan">État minceur, impôts en baisse</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="comparateur">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Enjeu par enjeu</span>
+        <h2>Le comparateur</h2>
+        <p>Décochez un parti pour l'écarter temporairement de l'affichage.</p>
+      </div>
+
+      <div class="filter-bar" id="filter-bar" role="group" aria-label="Filtrer les partis affichés">
+        <span class="label">Afficher :</span>
+        <button class="chip" data-party="caq" style="--chip-color:var(--caq)" aria-pressed="true"><span class="dot"></span>CAQ</button>
+        <button class="chip" data-party="plq" style="--chip-color:var(--plq)" aria-pressed="true"><span class="dot"></span>PLQ</button>
+        <button class="chip" data-party="pq" style="--chip-color:var(--pq)" aria-pressed="true"><span class="dot"></span>PQ</button>
+        <button class="chip" data-party="qs" style="--chip-color:var(--qs)" aria-pressed="true"><span class="dot"></span>QS</button>
+        <button class="chip" data-party="pcq" style="--chip-color:var(--pcq)" aria-pressed="true"><span class="dot"></span>PCQ</button>
+      </div>
+
+      <!-- Économie -->
+      <article class="theme-block">
+        <h3>Économie &amp; finances publiques</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Met en avant l'entente projetée de 70 G$ avec Terre-Neuve-et-Labrador sur les barrages Churchill Falls.</li>
+              <li>Vise des dizaines de milliers de nouveaux mégawatts, dont 10 700 MW réservés au Québec.</li>
+              <li>Se présente comme gestionnaire éprouvé de l'économie québécoise.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Veut mettre fin aux appels d'offres au plus bas soumissionnaire pour favoriser les PME.</li>
+              <li>Propose une tournée pancanadienne pour bâtir des alliances économiques et commerciales.</li>
+              <li>Se positionne comme l'équipe la plus compétente en gestion économique.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Vise un plus grand contrôle québécois sur les leviers économiques.</li>
+              <li>Lie cet objectif à sa démarche référendaire à plus long terme.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Propose une taxe sur les fortunes de plus de 25 M$.</li>
+              <li>Veut plafonner les salaires des hauts dirigeants d'entreprises subventionnées par l'État.</li>
+              <li>Prône une fiscalité globalement plus progressive.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Promet la plus importante baisse d'impôt de l'histoire du Québec pour les particuliers.</li>
+              <li>Vise une réduction majeure de l'impôt des sociétés, pour figurer parmi les 8 à 12 juridictions les plus compétitives d'Amérique du Nord.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Logement -->
+      <article class="theme-block">
+        <h3>Logement &amp; coût de la vie</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Rabais fiscaux ciblés pour les premiers acheteurs.</li>
+              <li>Présente les surplus hydroélectriques comme levier pour alléger les factures.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Bonification des remboursements de TVQ pour stimuler la construction résidentielle neuve.</li>
+              <li>Promesse annoncée d'environ 100 000 nouveaux logements par année.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Fait de la lutte à l'itinérance une priorité affichée de campagne.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Salaire minimum à 20 $/heure promis dans les 100 premiers jours.</li>
+              <li>Plafonnement des hausses de loyer à l'inflation.</li>
+              <li>Amendes de 10 000 $ à 200 000 $ pour propriétaires fautifs récidivistes, avec pouvoirs d'expropriation.</li>
+              <li>Réseau d'épiceries publiques et plafond sur les marges des grandes chaînes; fin des taxes sur les produits d'hygiène.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Mise sur la réduction des dépenses de l'État et les baisses d'impôt plutôt que sur des mesures ciblées de logement.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Santé -->
+      <article class="theme-block">
+        <h3>Santé</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Défend le bilan du réseau, dont la création de l'agence Santé Québec.</li>
+              <li>Promet de réduire les délais d'attente, sous pression de l'opposition sur les urgences.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Priorité affichée par le chef, mais détails chiffrés encore partiels à ce stade de la campagne.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Propose d'abolir l'agence Santé Québec, créée sous le gouvernement caquiste.</li>
+            </ul>
+          </div>
+          <div class="party-cell thin" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Intégrée à un projet de société plus large; moins médiatisée que ses engagements sur le logement.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Maintient l'universalité du régime public tout en élargissant le rôle du privé.</li>
+              <li>Propose qu'un patient en délai jugé trop long puisse consulter un fournisseur privé avec sa carte d'assurance maladie, sans frais additionnels.</li>
+              <li>Propose aussi l'abolition de Santé Québec.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Environnement -->
+      <article class="theme-block">
+        <h3>Environnement &amp; énergie</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Priorise les grands projets hydroélectriques et l'exportation d'électricité propre.</li>
+            </ul>
+          </div>
+          <div class="party-cell thin" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Peu de détails rendus publics jusqu'ici; positionnement attendu en cours de campagne.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>A publié un plan environnemental 2026-2034 axé sur la responsabilité climatique et l'enrichissement collectif.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Promet d'accélérer la transition écologique.</li>
+              <li>Investissements majeurs annoncés dans l'entretien et l'expansion du transport collectif.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Propose 17 tables décisionnelles régionales couvrant notamment les ressources naturelles et l'environnement, dans une logique de décentralisation plutôt que de cibles nationales.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Immigration -->
+      <article class="theme-block">
+        <h3>Immigration &amp; identité</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Discours constant de contrôle des seuils d'immigration.</li>
+              <li>Met l'accent sur la protection de la langue française et de l'identité québécoise.</li>
+            </ul>
+          </div>
+          <div class="party-cell thin" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Positionnement nationaliste modéré; aucun détail chiffré rendu public à ce jour.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Cherche à rapatrier davantage de pouvoirs en immigration et en culture au Québec.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Propose la création d'un ministère dédié aux violences basées sur le genre.</li>
+              <li>Met l'accent sur la justice sociale plutôt que sur le contrôle des seuils.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Propose de confier une partie des décisions en immigration aux nouvelles tables régionales.</li>
+              <li>Met de l'avant une politique nataliste, avec une aide financière aux familles.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Constitution -->
+      <article class="theme-block">
+        <h3>Avenir constitutionnel</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Fédéraliste autonomiste; exclut la tenue d'un référendum sur la souveraineté.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Fédéraliste, avec un accent régionaliste — attention particulière portée aux régions, dont un 3<sup>e</sup> lien à Québec axé sur la mobilité.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Promet un référendum sur la souveraineté au cours d'un premier mandat.</li>
+              <li>Le reporterait tant que Donald Trump serait président des États-Unis, invoquant l'instabilité commerciale.</li>
+              <li>Appuie aussi un 3<sup>e</sup> lien à Québec, orienté vers le transport collectif.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Favorable à la souveraineté à plus long terme, sans en faire un enjeu électoral immédiat.</li>
+              <li>Propose une réforme du mode de scrutin.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Positionnement autonomiste, avec une volonté de rapatrier des pouvoirs vers les régions et la province.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- État -->
+      <article class="theme-block">
+        <h3>État &amp; fonction publique</h3>
+        <div class="party-grid">
+          <div class="party-cell" data-party="caq" style="--cell-color:var(--caq)">
+            <div class="cell-head"><span class="abbr">CAQ</span></div>
+            <ul>
+              <li>Continuité administrative; défend les réformes de son mandat précédent plutôt que des ruptures majeures.</li>
+            </ul>
+          </div>
+          <div class="party-cell thin" data-party="plq" style="--cell-color:var(--plq)">
+            <div class="cell-head"><span class="abbr">PLQ</span></div>
+            <ul>
+              <li>Aucune annonce majeure de réduction ou d'expansion de l'État rendue publique jusqu'ici.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pq" style="--cell-color:var(--pq)">
+            <div class="cell-head"><span class="abbr">PQ</span></div>
+            <ul>
+              <li>Propose l'abolition de Santé Québec comme geste central de réorganisation de l'État.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="qs" style="--cell-color:var(--qs)">
+            <div class="cell-head"><span class="abbr">QS</span></div>
+            <ul>
+              <li>Vise un rôle accru de l'État dans le logement et l'alimentation, financé par une fiscalité plus progressive.</li>
+            </ul>
+          </div>
+          <div class="party-cell" data-party="pcq" style="--cell-color:var(--pcq)">
+            <div class="cell-head"><span class="abbr">PCQ</span></div>
+            <ul>
+              <li>Vise une réduction des dépenses publiques de 47 G$.</li>
+              <li>Propose de réduire le nombre de ministères de 29 à 20 maximum.</li>
+              <li>Gel d'embauche permanent et réduction de l'effectif de la fonction publique de 5,6 % par année par attrition (environ 20 000 postes visés).</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Vérifiable</span>
+        <h2>Sources</h2>
+        <p>Couverture journalistique consultée le 28 août 2026.</p>
+      </div>
+      <ol>
+        <li><a href="https://www.noovo.info/nouvelles/politique/elections-quebec/article/les-premieres-promesses-electorales-de-la-caq-du-plq-du-pq-de-qs-et-du-pcq/" target="_blank" rel="noopener">Noovo Info — Les premières promesses électorales de la CAQ, du PLQ, du PQ, de QS et du PCQ</a></li>
+        <li><a href="https://journalregards.ca/tour-dhorizon-des-promesses-electorales-au-quebec/" target="_blank" rel="noopener">Journal Regards — Tour d'horizon des promesses électorales au Québec</a></li>
+        <li><a href="https://www.lemanic.ca/2026/08/27/voici-cinq-enjeux-a-suivre-au-cours-de-la-campagne-electorale-provinciale-au-quebec/" target="_blank" rel="noopener">Le Manic — Cinq enjeux à suivre au cours de la campagne électorale</a></li>
+        <li><a href="https://www.lesoleil.com/actualites/2026/08/19/baisses-dimpots-historiques-et-etat-minceur-pour-les-conservateurs-SQYHROQYAVCX7M5L24RGRGHH7E/" target="_blank" rel="noopener">Le Soleil — Baisses d'impôts historiques et État minceur pour les conservateurs</a></li>
+        <li><a href="https://www.latribune.ca/actualites/politique/2026/08/19/sante-quebec-on-a-ete-les-premiers-a-dire-quil-fallait-abolir-ca-ZCA6QZU4WFEJ5PA2KA6YDKL3WI/" target="_blank" rel="noopener">La Tribune — « On a été les premiers à dire qu'il fallait abolir » Santé Québec (PCQ)</a></li>
+        <li><a href="https://www.letoiledulac.com/actualites/665268/quebec-solidaire-devoile-sa-plateforme-electorale" target="_blank" rel="noopener">L'Étoile du Lac — Québec solidaire dévoile sa plateforme électorale</a></li>
+        <li><a href="https://ici.radio-canada.ca/nouvelle/2245784/election-christine-frechette-caq-pm" target="_blank" rel="noopener">Radio-Canada — Chefferie de la CAQ : Christine Fréchette succède à François Legault</a></li>
+        <li><a href="https://www.lenouvelliste.ca/actualites/actualites-locales/2026/02/15/le-plq-accueille-avec-engouement-son-nouveau-chef-charles-milliard-HGNO3LW2G5HLREPKIGX24ZZNDM/" target="_blank" rel="noopener">Le Nouvelliste — Le PLQ accueille son nouveau chef, Charles Milliard</a></li>
+        <li><a href="https://pq.org/nouvelles/le-plan-environnement-du-parti-quebecois-2026-2034-prendre-ses-responsabilites-senrichir-et-ameliorer-notre-qualite-de-vie/" target="_blank" rel="noopener">Parti Québécois — Plan environnement 2026-2034</a></li>
+        <li><a href="https://fr.wikipedia.org/wiki/%C3%89lections_g%C3%A9n%C3%A9rales_qu%C3%A9b%C3%A9coises_de_2026" target="_blank" rel="noopener">Wikipédia — Élections générales québécoises de 2026</a></li>
+      </ol>
+      <p class="meta-note">Ce comparateur est un résumé éditorial, non exhaustif, produit à des fins informatives. Les plateformes complètes des partis peuvent être publiées ou modifiées après le 28 août 2026 — consultez les sites officiels de chaque parti et <a href="https://www.electionsquebec.qc.ca/" target="_blank" rel="noopener">Élections Québec</a> avant de voter.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Comparateur électoral Québec 2026 — outil indépendant, non officiel. Dernière mise à jour du contenu : 28 août 2026.
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var target = new Date("2026-10-05T00:00:00-04:00").getTime();
+    var chip = document.getElementById("days-chip");
+    function updateDays(){
+      var now = Date.now();
+      var diff = target - now;
+      if (diff <= 0){
+        chip.textContent = "Jour du scrutin";
+        return;
+      }
+      var days = Math.ceil(diff / (1000*60*60*24));
+      chip.textContent = days + (days === 1 ? " jour avant le scrutin" : " jours avant le scrutin");
+    }
+    updateDays();
+
+    var chips = document.querySelectorAll(".chip");
+    chips.forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var party = btn.getAttribute("data-party");
+        var pressed = btn.getAttribute("aria-pressed") === "true";
+        btn.setAttribute("aria-pressed", pressed ? "false" : "true");
+        document.querySelectorAll('.party-cell[data-party="' + party + '"]').forEach(function(cell){
+          cell.classList.toggle("is-hidden", pressed);
+        });
+        document.querySelectorAll('.party-card .abbr').forEach(function(abbr){
+          if (abbr.textContent.trim().toLowerCase() === party){
+            abbr.closest(".party-card").style.opacity = pressed ? "0.4" : "1";
+          }
+        });
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
